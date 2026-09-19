@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RAKSHAAN — Advanced 3D/4D Autonomous Disaster Digital Twin</title>
+  <meta name="description" content="Cinematic 3D/4D Autonomous Disaster Response & AI Explainability System for Drone Rescue Missions.">
+  <link rel="stylesheet" href="styles.css">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Three.js & OrbitControls -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+</head>
+<body class="dark-theme">
+
+  <!-- Top Navigation Header -->
+  <header class="app-header">
+    <div class="brand-logo">
+      <div class="logo-icon"><i data-lucide="shield-alert"></i></div>
+      <div class="logo-text">
+        <span class="title">RAKSHAAN</span>
+        <span class="subtitle">3D/4D CINEMATIC DIGITAL TWIN</span>
+      </div>
+    </div>
+
+    <!-- Navigation Pages -->
+    <nav class="main-nav">
+      <button class="nav-btn" data-page="command-center"><i data-lucide="layout-dashboard"></i> Command Center</button>
+      <button class="nav-btn" data-page="mission-planner"><i data-lucide="map-pin"></i> Mission Planner</button>
+      <button class="nav-btn active" data-page="live-mission"><i data-lucide="radio"></i> Live Mission</button>
+      <button class="nav-btn" data-page="digital-twin-3d"><i data-lucide="box"></i> 3D Digital Twin</button>
+      <button class="nav-btn" data-page="sensor-lab"><i data-lucide="cpu"></i> Sensor Lab</button>
+      <button class="nav-btn" data-page="ai-autonomy"><i data-lucide="brain-circuit"></i> AI Autonomy</button>
+      <button class="nav-btn" data-page="mission-replay"><i data-lucide="history"></i> Mission Replay</button>
+      <button class="nav-btn" data-page="mission-report"><i data-lucide="file-text"></i> Mission Report</button>
+    </nav>
+
+    <!-- Top Actions -->
+    <div class="header-actions">
+      <button id="audio-toggle-btn" class="audio-btn">
+        <i data-lucide="volume-x"></i> MUTE SOUND
+      </button>
+      <button id="explain-btn" class="explain-primary-btn">
+        <i data-lucide="play-circle"></i> EXPLAIN RAKSHAAN
+      </button>
+      <button id="show-why-btn" class="show-why-btn">
+        <i data-lucide="help-circle"></i> SHOW ME WHY
+      </button>
+      <div class="sim-honesty-badge">
+        <span class="pulse-dot"></span> SIMULATION MODE
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="app-viewport">
+
+    <!-- View Mode Selector Bar -->
+    <div class="view-mode-bar" id="view-mode-bar">
+      <div class="view-toggle-group">
+        <button class="view-toggle-btn" data-view="2d"><i data-lucide="map"></i> 2D MAP</button>
+        <button class="view-toggle-btn active" data-view="3d"><i data-lucide="box"></i> 3D WORLD</button>
+        <button class="view-toggle-btn" data-view="fpv"><i data-lucide="eye"></i> DRONE EYE (FPV)</button>
+        <button class="view-toggle-btn" data-view="cinematic"><i data-lucide="video"></i> CINEMATIC</button>
+      </div>
+
+      <!-- Environment Mode Selector -->
+      <div class="scenario-selector">
+        <label><i data-lucide="sun"></i> LIGHTING:</label>
+        <select id="env-mode-select">
+          <option value="NIGHT" selected>NIGHT STORM & SEARCHLIGHT</option>
+          <option value="DAY">FULL DAYLIGHT DISASTER ZONE</option>
+          <option value="STORM">HEAVY STORM FOG & RAIN</option>
+        </select>
+      </div>
+
+      <div class="scenario-selector">
+        <label><i data-lucide="sliders"></i> SCENARIO:</label>
+        <select id="scenario-select">
+          <option value="FLOOD">FLOOD RESPONSE DISASTER</option>
+          <option value="EARTHQUAKE">EARTHQUAKE STRUCTURAL COLLAPSE</option>
+          <option value="LANDSLIDE">LANDSLIDE TERRAIN HAZARD</option>
+          <option value="CYCLONE">CYCLONE STORM SEARCH</option>
+        </select>
+      </div>
+
+      <!-- Quick Camera Select Dropdown -->
+      <div class="camera-selector">
+        <label><i data-lucide="camera"></i> CAMERA:</label>
+        <select id="camera-mode-select">
+          <option value="COMMAND_VIEW">CAM 01 — COMMAND VIEW</option>
+          <option value="DRONE_FOLLOW" selected>CAM 02 — DRONE FOLLOW</option>
+          <option value="DRONE_FRONT">CAM 03 — DRONE FRONT</option>
+          <option value="DRONE_EYE_FPV">CAM 04 — DRONE EYE FPV (OPTICAL LENS)</option>
+          <option value="TOP_DOWN">CAM 05 — TOP DOWN SATELLITE</option>
+          <option value="SURVIVOR_VIEW">CAM 06 — SURVIVOR VIEW</option>
+          <option value="HAZARD_VIEW">CAM 07 — HAZARD VIEW</option>
+          <option value="SENSOR_VIEW">CAM 08 — SENSOR VIEW</option>
+          <option value="CINEMATIC_ORBIT">CAM 09 — CINEMATIC ORBIT</option>
+          <option value="LOW_ALTITUDE">CAM 10 — LOW ALTITUDE</option>
+          <option value="MISSION_OVERVIEW">CAM 11 — MISSION OVERVIEW</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- 3D Canvas Container -->
+    <div id="canvas-container" class="canvas-viewport">
+
+      <!-- Letterbox Bars for Cinematic Mode -->
+      <div class="letterbox letterbox-top"></div>
+      <div class="letterbox letterbox-bottom"></div>
+
+      <!-- Interactive 2D Overlay Canvas for 2D Map mode -->
+      <canvas id="map2d-canvas" class="hidden-canvas"></canvas>
+
+      <!-- DRONE EYE FPV HUD OVERLAY LAYER -->
+      <div id="fpv-overlay" class="fpv-overlay hidden">
+        <div class="fpv-reticle">
+          <div class="fpv-center-crosshair"></div>
+          <div class="fpv-target-box" id="fpv-target-box">
+            <span class="target-label">TARGET LOCK: BODY S-01 (CHILD)</span>
+            <span class="target-dist">RANGE: 14.8m | CONF: 98.4%</span>
+          </div>
+        </div>
+
+        <div class="fpv-top-bar">
+          <div class="fpv-sensor-tag"><i data-lucide="eye"></i> DRONE EYE: RGB + THERMAL FLIR RADIOMETRIC LENS</div>
+          <div class="fpv-mode-badge"><span class="fpv-rec-dot"></span> LIVE OPTICAL SCANNING</div>
+        </div>
+
+        <div class="fpv-bottom-telemetry">
+          <div class="fpv-metric">LASER RANGER: <strong>14.8m</strong></div>
+          <div class="fpv-metric">LiDAR ToF: <strong>100,000 pts/s</strong></div>
+          <div class="fpv-metric">FLIR SPECTRUM: <strong>8-14 µm LWIR</strong></div>
+          <div class="fpv-metric">YOLO NEURAL NET: <strong>30 FPS</strong></div>
+        </div>
+      </div>
+
+      <!-- HUD Telemetry & Status Overlay - Center Column 100% Unobstructed -->
+      <div class="hud-layer" id="hud-layer">
+        <!-- LEFT COLUMN (Row 1): Telemetry -->
+        <div class="hud-panel telemetry-panel">
+          <div class="panel-header">
+            <span><i data-lucide="navigation"></i> DRONE TELEMETRY</span>
+            <span class="status-ok" style="font-family: var(--font-mono); font-size: 0.65rem;">LIVE</span>
+          </div>
+          <div class="telemetry-grid">
+            <div class="metric"><span class="label">ALTITUDE</span><span class="value" id="hud-alt">15.2 m</span></div>
+            <div class="metric"><span class="label">SPEED</span><span class="value" id="hud-speed">14.2 km/h</span></div>
+            <div class="metric"><span class="label">BATTERY</span><span class="value" id="hud-battery">84%</span></div>
+            <div class="metric"><span class="label">HEADING</span><span class="value" id="hud-heading">045° NE</span></div>
+            <div class="metric"><span class="label">GPS STATUS</span><span class="value status-ok" id="hud-gps">FIX (12 SAT)</span></div>
+            <div class="metric"><span class="label">COMM LINK</span><span class="value status-ok" id="hud-comm">ACTIVE (98%)</span></div>
+          </div>
+        </div>
+
+        <!-- LEFT COLUMN (Row 2): MISSION EVENT TRACE (MOVED TO SIDE OUT OF SIMULATION VIEW!) -->
+        <div class="hud-panel event-log-panel">
+          <div class="panel-header">
+            <span><i data-lucide="activity"></i> MISSION EVENT TRACE</span>
+            <span style="color: var(--accent-cyan); font-family: var(--font-mono); font-size: 0.65rem;">REALTIME</span>
+          </div>
+          <div class="event-list" id="event-list">
+            <!-- Dynamic events populated here -->
+          </div>
+        </div>
+
+        <!-- LEFT COLUMN (Row 3): TACTICAL RADAR SCANNER -->
+        <div class="hud-panel radar-panel">
+          <div class="panel-header">
+            <span><i data-lucide="radar"></i> TACTICAL RADAR SCANNER</span>
+            <span style="color: var(--accent-cyan); font-family: var(--font-mono); font-size: 0.65rem;">360° ACTIVE</span>
+          </div>
+          <div class="radar-container">
+            <canvas id="radar-canvas" width="180" height="180"></canvas>
+          </div>
+        </div>
+
+        <!-- RIGHT COLUMN (Row 1): AI RESCUE COMMANDER & HAZARD ALERT BANNER (MOVED TO SIDE HUD OUT OF SIMULATION VIEW!) -->
+        <div class="hud-panel ai-node-panel">
+          <div class="panel-header">
+            <span><i data-lucide="brain"></i> AI RESCUE COMMANDER</span>
+            <span style="color: var(--accent-purple); font-family: var(--font-mono); font-size: 0.65rem;">EDGE AUTONOMY</span>
+          </div>
+          <div class="ai-state-box">
+            <div class="ai-step active" id="ai-step-perceive"><span class="step-num">1</span> PERCEIVE</div>
+            <i data-lucide="chevron-right"></i>
+            <div class="ai-step" id="ai-step-assess"><span class="step-num">2</span> ASSESS</div>
+            <i data-lucide="chevron-right"></i>
+            <div class="ai-step" id="ai-step-prioritize"><span class="step-num">3</span> PRIORITIZE</div>
+            <i data-lucide="chevron-right"></i>
+            <div class="ai-step" id="ai-step-act"><span class="step-num">4</span> ACT</div>
+          </div>
+          <div class="ai-recommendation" id="ai-recommendation-text">
+            RESCUE ORDER LOCKED: Target S-01 (Probable Child) FIRST &rarr; Rising Flood Risk!
+          </div>
+
+          <!-- NATURAL LANGUAGE AUTONOMOUS DECISION STREAM -->
+          <div class="ai-decision-narrator" id="ai-decision-narrator">
+            <div class="narrator-title"><i data-lucide="message-square"></i> AUTONOMOUS REASONING NARRATOR</div>
+            <div class="narrator-body" id="narrator-stream-body">
+              <div class="narrator-line"><span class="time">[00:00]</span> Grid Search Corridor Initialized: Scanning 20x20 Sector with LiDAR 360 & RGB YOLO-NAS.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT COLUMN (Row 2): VICTIM TRIAGE REPORT -->
+        <div class="hud-panel triage-panel">
+          <div class="panel-header">
+            <span><i data-lucide="users"></i> VICTIM TRIAGE REPORT</span>
+            <span style="color: var(--accent-rose); font-family: var(--font-mono); font-size: 0.65rem;">3 BODIES LOCATED</span>
+          </div>
+
+          <!-- Highlight Banner: WHICH BODY TO SAVE FIRST -->
+          <div class="save-first-banner" id="save-first-banner">
+            <div class="save-rank">#1 SAVE FIRST</div>
+            <div class="save-title" id="save-first-title">BODY S-01 (Probable Child)</div>
+          </div>
+
+          <!-- Victim List Cards -->
+          <div class="victim-cards-container" id="victim-cards-container">
+            <!-- Dynamic survivor cards populated via JS -->
+          </div>
+        </div>
+
+        <!-- RIGHT COLUMN (Row 3): AUTONOMY STRESS TEST -->
+        <div class="hud-panel controls-panel">
+          <div class="panel-header">
+            <span><i data-lucide="shield-alert"></i> AUTONOMY STRESS TEST</span>
+          </div>
+          <div class="stress-buttons">
+            <button class="stress-btn" id="inject-gps-btn"><i data-lucide="rss"></i> INJECT GPS LOSS</button>
+            <button class="stress-btn" id="inject-comm-btn"><i data-lucide="wifi-off"></i> INJECT COMM LOSS</button>
+            <button class="stress-btn" id="inject-hazard-btn"><i data-lucide="flame"></i> INJECT HAZARD</button>
+            <button class="stress-btn" id="inject-battery-btn"><i data-lucide="battery-warning"></i> LOW BATTERY</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Explain Mode Cinematic Controls Overlay -->
+      <div id="explain-overlay" class="explain-overlay hidden">
+        <div class="explain-header-bar">
+          <div class="explain-title">
+            <i data-lucide="play-circle"></i>
+            <span id="explain-scene-num">SCENE 01 / 18</span>
+            <h2 id="explain-scene-title">THE DISASTER WORLD</h2>
+          </div>
+          <button id="explain-exit-btn" class="explain-exit-btn"><i data-lucide="x"></i> EXIT EXPLAIN MODE</button>
+        </div>
+
+        <div class="explain-subtitle-box" id="explain-caption-box">
+          <p id="explain-caption">Scanning disaster zone terrain: Flooded roads, damaged structures, blocked access paths, and survivor risk areas.</p>
+        </div>
+
+        <div class="explain-control-bar">
+          <button id="explain-prev-btn" class="exp-ctrl-btn"><i data-lucide="skip-back"></i> PREV</button>
+          <button id="explain-play-btn" class="exp-ctrl-btn exp-primary"><i data-lucide="pause"></i> PAUSE</button>
+          <button id="explain-next-btn" class="exp-ctrl-btn"><i data-lucide="skip-forward"></i> NEXT</button>
+          <div class="explain-progress-container">
+            <div class="explain-progress-bar" id="explain-progress-bar"></div>
+          </div>
+          <button id="explain-skip-btn" class="exp-ctrl-btn text-btn">SKIP ALL</button>
+        </div>
+      </div>
+
+      <!-- SHOW ME WHY Contextual Card Popup -->
+      <div id="show-why-modal" class="show-why-modal hidden">
+        <div class="why-card">
+          <div class="why-header">
+            <h3><i data-lucide="eye"></i> VISUAL EVIDENCE SYSTEM</h3>
+            <button id="close-why-btn" class="close-why-btn">&times;</button>
+          </div>
+          <div class="why-body" id="why-body-content">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 4D Time-Based Mission Replay Timeline -->
+    <div class="replay-timeline-bar" id="replay-timeline-bar">
+      <button id="replay-play-btn" class="timeline-play-btn"><i data-lucide="play"></i></button>
+      <span class="timeline-time" id="timeline-current-time">00:00</span>
+      <div class="timeline-slider-container">
+        <input type="range" id="timeline-slider" min="0" max="120" value="0" step="1">
+        <div class="timeline-markers" id="timeline-markers">
+          <!-- Keyframe markers for events -->
+        </div>
+      </div>
+      <span class="timeline-time" id="timeline-total-time">02:00</span>
+      <div class="replay-speed-selector">
+        <button class="speed-btn active" data-speed="1">1x</button>
+        <button class="speed-btn" data-speed="2">2x</button>
+        <button class="speed-btn" data-speed="5">5x</button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Mission Scorecard Modal -->
+  <div id="scorecard-modal" class="modal-overlay hidden">
+    <div class="scorecard-container">
+      <div class="scorecard-header">
+        <h2><i data-lucide="award"></i> RAKSHAAN MISSION PERFORMANCE REPORT</h2>
+        <button id="close-scorecard-btn" class="modal-close-btn">&times;</button>
+      </div>
+      <div class="scorecard-grid">
+        <div class="score-card">
+          <span class="score-title">SURVIVOR DETECTION</span>
+          <div class="score-bar-bg"><div class="score-bar-fill" style="width: 100%;"></div></div>
+          <span class="score-num">100% (3 / 3 Located & Prioritized)</span>
+        </div>
+        <div class="score-card">
+          <span class="score-title">SEARCH COVERAGE</span>
+          <div class="score-bar-bg"><div class="score-bar-fill" style="width: 96%;"></div></div>
+          <span class="score-num">96% Grid Coverage</span>
+        </div>
+        <div class="score-card">
+          <span class="score-title">HAZARD AWARENESS</span>
+          <div class="score-bar-bg"><div class="score-bar-fill" style="width: 98%;"></div></div>
+          <span class="score-num">98% Risk Identified</span>
+        </div>
+        <div class="score-card">
+          <span class="score-title">NAVIGATION EFFICIENCY</span>
+          <div class="score-bar-bg"><div class="score-bar-fill" style="width: 94%;"></div></div>
+          <span class="score-num">94% Route Optimized</span>
+        </div>
+        <div class="score-card">
+          <span class="score-title">BATTERY MANAGEMENT</span>
+          <div class="score-bar-bg"><div class="score-bar-fill" style="width: 95%;"></div></div>
+          <span class="score-num">95% Power Preserved</span>
+        </div>
+        <div class="score-card">
+          <span class="score-title">RESCUE RESPONSE SCORE</span>
+          <div class="score-bar-bg"><div class="score-bar-fill" style="width: 98%;"></div></div>
+          <span class="score-num">98 / 100 EXCELLENT</span>
+        </div>
+      </div>
+      <div class="scorecard-footer">
+        <div class="sim-notice">Scores derived strictly from deterministic simulation metrics.</div>
+        <div style="display: flex; gap: 0.5rem;">
+          <button id="print-report-btn" class="show-why-btn"><i data-lucide="printer"></i> EXPORT / PRINT REPORT</button>
+          <button id="close-scorecard-action" class="primary-btn">CLOSE REPORT</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Application Scripts -->
+  <script src="js/audioEngine.js"></script>
+  <script src="js/simulationState.js"></script>
+  <script src="js/cameraDirector.js"></script>
+  <script src="js/scene3D.js"></script>
+  <script src="js/map2D.js"></script>
+  <script src="js/explainEngine.js"></script>
+  <script src="js/showMeWhy.js"></script>
+  <script src="js/replay4D.js"></script>
+  <script src="js/sensorLab.js"></script>
+  <script src="js/stressTest.js"></script>
+  <script src="js/scorecard.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
