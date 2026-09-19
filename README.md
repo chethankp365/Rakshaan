@@ -1,0 +1,1 @@
+RAKSHAAN is an AI-powered autonomous disaster-response drone designed to detect survivors and hazards using RGB and thermal vision, navigate dangerous environments, and transmit real-time locations and risk information to rescue teams—enabling faster, safer, and smarter emergency response.
