@@ -28,7 +28,7 @@ When an alert arrives, RAKSHAAN takes off on its own and sweeps the affected sec
 
 <div align="center">
 
-<img src="Screenshot_2026-09-30_153102.png" alt="RAKSHAAN 4D engine – flood zone mission in progress" width="100%"/>
+<img src="01-flood-zone.png" alt="RAKSHAAN 4D engine – flood zone mission in progress" width="100%"/>
 
 <sub>Flood-zone mission in the 4D engine: live telemetry, hazard alerts, survivor detection and the step-by-step mission player.</sub>
 
@@ -119,19 +119,19 @@ One engine, three different emergencies. Scenarios switch live from the top bar.
 <table>
 <tr>
 <td width="50%" align="center">
-<img src="Screenshot_2026-09-30_153102.png" alt="Flood zone scenario" width="100%"/>
+<img src="01-flood-zone.png" alt="Flood zone scenario" width="100%"/>
 <br/><b>Flood zone</b><br/>
 <sub>Rising water at 0.5 m/hr and an unstable tower-crane base (LiDAR detected a 4.2° tilt). A survivor on a high platform is verified at 37.2 °C.</sub>
 </td>
 <td width="50%" align="center">
-<img src="Screenshot_2026-09-30_154205.png" alt="Landslide scenario" width="100%"/>
+<img src="06-landslide.png" alt="Landslide scenario" width="100%"/>
 <br/><b>Landslide</b><br/>
 <sub>LiDAR maps the unstable cliff face; thermal finds a survivor trapped in a vehicle under debris while the blocked road is flagged <i>Do not enter</i>.</sub>
 </td>
 </tr>
 <tr>
 <td colspan="2" align="center">
-<img src="Screenshot_2026-09-30_154455.png" alt="Cyclone scenario – rescue field command base" width="70%"/>
+<img src="13-cyclone.png" alt="Cyclone scenario – rescue field command base" width="70%"/>
 <br/><b>Cyclone</b><br/>
 <sub>Storm mode handles 120 km/h+ gusts and the A* planner reroutes around fallen power lines. The rescue field command base connects the ground team over a dual 915 MHz datalink.</sub>
 </td>
@@ -153,15 +153,15 @@ A single sensor can be fooled by shadows, debris or stray heat sources. RAKSHAAN
 <table>
 <tr>
 <td width="34%" align="center">
-<img src="Screenshot_2026-09-30_153219.png" alt="Sensor fusion verification card" width="100%"/>
+<img src="02-sensor-fusion.png" alt="Sensor fusion verification card" width="100%"/>
 <br/><sub><b>Fusion verification</b><br/>RGB 94.2 % + FLIR heat signature gives a <i>Known / Verified</i> target.</sub>
 </td>
 <td width="33%" align="center">
-<img src="Screenshot_2026-09-30_154104.png" alt="Drone telemetry panel" width="100%"/>
+<img src="04-telemetry.png" alt="Drone telemetry panel" width="100%"/>
 <br/><sub><b>Live telemetry</b><br/>Battery, RTK GPS fix, speed, altitude, heading and link quality.</sub>
 </td>
 <td width="33%" align="center">
-<img src="Screenshot_2026-09-30_154113.png" alt="Mission event trace" width="100%"/>
+<img src="05-event-trace.png" alt="Mission event trace" width="100%"/>
 <br/><sub><b>Mission event trace</b><br/>Timestamped log of every autonomous decision.</sub>
 </td>
 </tr>
@@ -182,7 +182,7 @@ xychart-beta
 Finding people is half the job; **deciding who to reach first** is the other half. Each target is scored from its thermal reading, hazard exposure (water level, wind, debris depth) and detection confidence, then ranked.
 
 <div align="center">
-<img src="Screenshot_2026-09-30_154055.png" alt="Survivor priority queue" width="45%"/>
+<img src="03-priority-queue.png" alt="Survivor priority queue" width="45%"/>
 </div>
 
 ```mermaid
@@ -204,48 +204,48 @@ The ground team's window into the mission. Pick it up at the rescue field comman
 <table>
 <tr>
 <td width="50%" align="center">
-<img src="Screenshot_2026-09-30_154556.png" alt="Live feed – RGB 4K" width="100%"/>
+<img src="14-feed-rgb.png" alt="Live feed – RGB 4K" width="100%"/>
 <br/><b>Live feed · RGB 4K</b><br/><sub>Real-time stream with target tag, verification percentage and one-tap snapshot.</sub>
 </td>
 <td width="50%" align="center">
-<img src="Screenshot_2026-09-30_154652.png" alt="Live feed – FLIR thermal" width="100%"/>
+<img src="15-feed-thermal.png" alt="Live feed – FLIR thermal" width="100%"/>
 <br/><b>Live feed · FLIR thermal</b><br/><sub>Heat-based view for finding people hidden from normal vision.</sub>
 </td>
 </tr>
 <tr>
 <td width="50%" align="center">
-<img src="Screenshot_2026-09-30_154724.png" alt="Live feed – LiDAR depth" width="100%"/>
+<img src="16-feed-lidar.png" alt="Live feed – LiDAR depth" width="100%"/>
 <br/><b>Live feed · LiDAR depth</b><br/><sub>Depth-based understanding of terrain and obstacles.</sub>
 </td>
 <td width="50%" align="center">
-<img src="Screenshot_2026-09-30_154408.png" alt="2D tactical map" width="100%"/>
+<img src="07-tablet-map.png" alt="2D tactical map" width="100%"/>
 <br/><b>Tactical map</b><br/><sub>Survivors, hazard zones, NDRF squad, medical point and drone position on a 1:500 m map with coverage tracking.</sub>
 </td>
 </tr>
 <tr>
 <td width="50%" align="center">
-<img src="Screenshot_2026-09-30_154414.png" alt="Survivor dispatch and priority matrix" width="100%"/>
+<img src="08-tablet-survivors.png" alt="Survivor dispatch and priority matrix" width="100%"/>
 <br/><b>Survivor dispatch & priority matrix</b><br/><sub>Ranked targets with urgency bars, hazard risk and a one-click <i>Dispatch Rescue Team</i>.</sub>
 </td>
 <td width="50%" align="center">
-<img src="Screenshot_2026-09-30_154423.png" alt="Active hazard zones" width="100%"/>
+<img src="09-tablet-hazards.png" alt="Active hazard zones" width="100%"/>
 <br/><b>Hazards</b><br/><sub>Cyclone surge, live 11 kV power lines and structural damage, each with severity, growth trend and recommended action.</sub>
 </td>
 </tr>
 <tr>
 <td width="50%" align="center">
-<img src="Screenshot_2026-09-30_154430.png" alt="Drone diagnostics and system health" width="100%"/>
+<img src="10-tablet-drone-status.png" alt="Drone diagnostics and system health" width="100%"/>
 <br/><b>Drone status</b><br/><sub>Battery, GPS satellites, 915 MHz link, 64 TOPS edge NPU, sensor health and the live 12-step tracker.</sub>
 </td>
 <td width="50%" align="center">
-<img src="Screenshot_2026-09-30_154437.png" alt="Tactical comms and alerts" width="100%"/>
+<img src="11-tablet-comms.png" alt="Tactical comms and alerts" width="100%"/>
 <br/><b>Comms & alerts</b><br/><sub>Acknowledge alerts and send quick commands: hold position, return home, investigate a target, widen the search.</sub>
 </td>
 </tr>
 </table>
 
 <div align="center">
-<img src="Screenshot_2026-09-30_154443.png" alt="Live mission intelligence report" width="75%"/>
+<img src="12-tablet-report.png" alt="Live mission intelligence report" width="75%"/>
 <br/><b>Live mission intelligence report</b><br/>
 <sub>Survivors located, hazards mapped, grid coverage and flight time, plus an <b>Explainable Decision Trace Audit</b> and one-click PDF export.</sub>
 </div>
