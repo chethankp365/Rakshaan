@@ -339,4 +339,7 @@ npx serve .
 
 **Team ZeroOne**
 
-<!-- EDIT: add team member names / GitHub links -->
+| Member | GitHub |
+|---|---|
+| **Chethan Kumar KP** | [@chethankp365](https://github.com/chethankp365) |
+| **Yogendra G** | [@yogendrag196-dev](https://github.com/yogendrag196-dev) |
